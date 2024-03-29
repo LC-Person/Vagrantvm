@@ -32,10 +32,12 @@ sudo update-alternatives --config python
 echo "Set Variables"
 # variables get reset after reboot
 script_path="/etc/profile.d/fabricVar.sh"
+uploadFolder="testUpload"
+
 touch $script_path
 echo "export FABRIC_CREDMGR_HOST=cm.fabric-testbed.net" >> "$script_path"
 echo "export FABRIC_ORCHESTRATOR_HOST=orchestrator.fabric-testbed.net" >> "$script_path"
-echo "export FABRIC_TOKEN_LOCATION=/home/vagrant/testUpload/id_token.json" >> "$script_path"
+echo "export FABRIC_TOKEN_LOCATION=/home/vagrant/$uploadFolder/id_token.json" >> "$script_path"
 
 echo "jupyeter lab installation"
 
@@ -59,8 +61,11 @@ echo "download jupyter examples"
 #download jupyter examples
 git clone https://github.com/fabric-testbed/jupyter-examples.git
 
-
-echo "modify jupyter kernal"
+echo "setup fabric enviorment"
+sudo -u vagrant mkdir /home/vagrant/work
+sudo -u vagrant mkdir /home/vagrant/work/fabric_config/
+cp /home/vagrant/$uploadFolder/Fabric_Vagrant_VM_BASTION /home/vagrant/work/fabric_config/fabric_bastion_key
+chmod 600 /home/vagrant/work/fabric_config/fabric_bastion_key
 #sudo sed -i 's/python/\/usr\/bin\/python3.9/' ~/.local/share/jupyter/kernels/python3/kernel.json
 
 
