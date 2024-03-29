@@ -6,6 +6,8 @@ the following are instructions to run
 - Install Oracle Virtualbox
 
 ## instructions
+1) download using git clone
+2) run "vagrant up" within the directory that was created when cloning
 
 the following steps should run automatically after running "vagrant up"
 
