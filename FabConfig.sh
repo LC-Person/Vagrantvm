@@ -55,8 +55,6 @@ sudo -u vagrant pip install -U psutil
 echo "install fablib"
 
 #install fablib
-#pip3 install virtualenv virtualenvwrapper
-#sudo -u vagrant virtualenv fabric-jupyter
 sudo -u vagrant pip install fabrictestbed
 sudo -u vagrant pip install fabrictestbed-extensions
 
@@ -68,12 +66,12 @@ git clone https://github.com/fabric-testbed/jupyter-examples.git
 echo "setup fabric enviorment"
 sudo -u vagrant mkdir $USR_HOME/work
 sudo -u vagrant mkdir $USR_HOME/work/fabric_config/
-sudo -u vagrant cp $USR_HOME/$uploadFolder/$FABRIC_BASTION_KEY $USR_HOME/work/fabric_config/fabric_bastion_key
-sudo -u vagrant cp $USR_HOME/$uploadFolder/$FABRIC_TOKEN_NAME $USR_HOME/work/fabric_config/.id_token.json
+sudo -u vagrant cp $USR_HOME/$USER_FOLDER/$FABRIC_BASTION_KEY $USR_HOME/work/fabric_config/fabric_bastion_key
+sudo -u vagrant cp $USR_HOME/$USER_FOLDER/$FABRIC_TOKEN_NAME $USR_HOME/work/fabric_config/.id_token.json
 
 echo "configure enviorment (hopefully)"
 echo "test: $FABRIC_PROJECT_ID"
-sudo -u vagrant python $USR_HOME/SetupFolder/configure.py
+sudo -u vagrant python $USR_HOME/$CONFIG_FOLDER/configure.py
 chmod 600 $USR_HOME/work/fabric_config/fabric_bastion_key
 
 echo "starting reboot:"
