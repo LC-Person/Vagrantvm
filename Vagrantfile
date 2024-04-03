@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
      # Display the VirtualBox GUI when booting the machine
      vb.gui = true
   end
-  config.vm.provision "file", source: "./TestUpload", destination: "/home/vagrant/testUpload"
+  config.vm.provision "file", source: "./UserFiles", destination: "/home/vagrant/User_Files"
+  config.vm.provision "file", source: "./SetupFolder", destination: "/home/vagrant/Setup_Folder"
   config.vm.provision "shell", path: "./FabConfig.sh"
 end
