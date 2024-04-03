@@ -10,10 +10,15 @@ the following are instructions to run
 ### To Download the Repository and execute the code
 Simply follow these instructions on your enviorment
 1- Open you prefered terminal option (Powershell, Terminal, CMD)
+
 2- make a directory "Fabric Vagrant Machine" and move into this directory
+
 3- download using git clone: ```git clone https://github.com/LC-Person/Vagrantvm.git```
+
 4- Modify the contents or copy your information into the "UserFiles" directory click [here](https://github.com/LC-Person/Vagrantvm/tree/master/UserFiles) for more information
+
 5- Modify the contents of "USRinfo.sh" insde "SetupFolder" to reflect the changes in the "UserFiles" deriectory click [here](https://github.com/LC-Person/Vagrantvm/blob/master/SetupFolder/README.MD) for more information
+
 6- run "vagrant up"
 
 ### What the executed code does
