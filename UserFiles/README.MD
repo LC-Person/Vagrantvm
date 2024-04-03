@@ -12,4 +12,19 @@ After you have uploaded these items be sure to update the "USRinfo.sh" file with
 
 
 ## Aquiering items:
-Step 1) find your information
+
+
+### SSH Keys:
+The SSH keys are needed for the fabric api to create slices, additionaly you need these keys to access the machines via ssh tunnels. To obtain/create these keys you can follow this guide or follow these instructions [guide](https://learn.fabric-testbed.net/knowledge-base/logging-into-fabric-vms/)
+
+1. Navigate to [portal.fabric-testbed.net](portal.fabric-testbed.net) and sign in to your fabric account
+2. Navigate to [https://portal.fabric-testbed.net/experiments#sshKeys](https://portal.fabric-testbed.net/experiments#sshKeys)
+3. Generate your sliver key by filling out the text boxes "Name" & "Description"
+4. Download both of these items, **Keep your Private Key safe**, you will not be able to get it after you leave this page.
+5. Click on the "Bastion" tab
+6. Generate your bastion key by filling out the text boxes "Name" & "Description"
+7. Download both of these items, **Keep your Private Key safe**, you will not be able to get it after you leave this page.
+8. Move these keys from your "Downloads" folder into the "UserFiles" Directory we are using.
+
+### Token:
+Since we are not using 

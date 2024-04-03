@@ -6,9 +6,9 @@
 #		- 4096mb
 #		- 2 cores
 
-$USER_FOLDER="User_Files"
-$CONFIG_FOLDER="Setup_Folder"
-$USR_HOME="/home/vagrant"
+USER_FOLDER="User_Files"
+CONFIG_FOLDER="Setup_Folder"
+USR_HOME="/home/vagrant"
 
 sudo apt-get update
 echo "install GUI"
@@ -66,6 +66,7 @@ git clone https://github.com/fabric-testbed/jupyter-examples.git
 echo "setup fabric enviorment"
 sudo -u vagrant mkdir $USR_HOME/work
 sudo -u vagrant mkdir $USR_HOME/work/fabric_config/
+sudo -u vagrant echo "sudo -u vagrant cp $USR_HOME/$USER_FOLDER/$FABRIC_BASTION_KEY $USR_HOME/work/fabric_config/fabric_bastion_key"
 sudo -u vagrant cp $USR_HOME/$USER_FOLDER/$FABRIC_BASTION_KEY $USR_HOME/work/fabric_config/fabric_bastion_key
 sudo -u vagrant cp $USR_HOME/$USER_FOLDER/$FABRIC_TOKEN_NAME $USR_HOME/work/fabric_config/.id_token.json
 
