@@ -3,7 +3,7 @@
 #		- 64mb
 #		- 3D accel
 #	Sys:
-#		- 4096mb
+#		- 2048mb
 #		- 2 cores
 
 USER_FOLDER="User_Files"
@@ -38,8 +38,8 @@ script_path="/etc/profile.d/fabricVar.sh"
 touch $script_path
 echo "export FABRIC_CREDMGR_HOST=cm.fabric-testbed.net" >> "$script_path"
 echo "export FABRIC_ORCHESTRATOR_HOST=orchestrator.fabric-testbed.net" >> "$script_path"
-echo "export FABRIC_TOKEN_LOCATION=$USR_HOME/$CONFIG_FOLDER/id_token.json" >> "$script_path"
-source /etc/profile.d/fabricVar.sh
+echo "export FABRIC_TOKEN_LOCATION=$USR_HOME/work/fabric_config/id_token.json" >> "$script_path"
+source $script_path
 
 #Load user information
 source $USR_HOME/$CONFIG_FOLDER/USRinfo.sh
@@ -66,14 +66,23 @@ git clone https://github.com/fabric-testbed/jupyter-examples.git
 echo "setup fabric enviorment"
 sudo -u vagrant mkdir $USR_HOME/work
 sudo -u vagrant mkdir $USR_HOME/work/fabric_config/
-sudo -u vagrant echo "sudo -u vagrant cp $USR_HOME/$USER_FOLDER/$FABRIC_BASTION_KEY $USR_HOME/work/fabric_config/fabric_bastion_key"
-sudo -u vagrant cp $USR_HOME/$USER_FOLDER/$FABRIC_BASTION_KEY $USR_HOME/work/fabric_config/fabric_bastion_key
-sudo -u vagrant cp $USR_HOME/$USER_FOLDER/$FABRIC_TOKEN_NAME $USR_HOME/work/fabric_config/.id_token.json
 
-echo "configure enviorment (hopefully)"
-echo "test: $FABRIC_PROJECT_ID"
+#variable error
+FABRIC_BASTION_KEY=$(echo "$FABRIC_BASTION_KEY" | tr -d '\r')
+CPsource=${USR_HOME}/${USER_FOLDER}/${FABRIC_BASTION_KEY}
+CPpaste=${USR_HOME}/work/fabric_config/fabric_bastion_key
+
+sudo -u vagrant sudo -u vagrant cp "$CPsource" "$CPpaste"
+CPsource=${USR_HOME}/${USER_FOLDER}/${FABRIC_TOKEN_NAME}
+CPpaste=${USR_HOME}/work/fabric_config/id_token.json
+sudo -u vagrant cp "$CPsource" "$CPpaste"
+CPpaste=${USR_HOME}/.tokens.json
+sudo -u vagrant cp "$CPsource" "$CPpaste"
+
+echo "configure enviorment"
 sudo -u vagrant python $USR_HOME/$CONFIG_FOLDER/configure.py
 chmod 600 $USR_HOME/work/fabric_config/fabric_bastion_key
+chmod +x ${USR_HOME}/${CONFIG_FOLDER}/Re-Configure.sh
 
 echo "starting reboot:"
 echo "After reboot you can start using the machine"

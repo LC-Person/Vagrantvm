@@ -22,6 +22,3 @@ This is a usefull tool incase one of your keys expires, or a token expires, and 
 - update the "Userinfo.sh" file
 - run ```Re-Configure.sh``` 
 
-## Test.sh
-place holder
-
