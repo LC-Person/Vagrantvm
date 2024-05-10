@@ -26,7 +26,7 @@ sudo update-alternatives --config python
 sudo apt-get install python3.9-distutils
 sudo wget https://bootstrap.pypa.io/get-pip.py
 sudo python3.9 get-pip.py
-sudo update-alternatives --config pythonz
+sudo update-alternatives --config python
 
 printf  "\nSet Variables\n"
 # Load persistant variables after reboot
@@ -35,7 +35,10 @@ script_path="/etc/profile.d/fabricVar.sh"
 touch $script_path
 echo "export FABRIC_CREDMGR_HOST=cm.fabric-testbed.net" >> "$script_path"
 echo "export FABRIC_ORCHESTRATOR_HOST=orchestrator.fabric-testbed.net" >> "$script_path"
+echo "export FABRIC_BASTION_HOST=bastion.fabric-testbed.net" >> "$script_path"
 echo "export FABRIC_TOKEN_LOCATION=$USR_HOME/work/fabric_config/id_token.json" >> "$script_path"
+echo "export FABRIC_BASTION_KEY_LOCATION=$USR_HOME/work/fabric_config/fabric_bastion_key" >> "$script_path"
+echo "source $USR_HOME/$CONFIG_FOLDER/USRinfo.sh">>"$script_path"
 echo "JUPYTER_LAB_TOKEN=fabric" >> "$script_path"
 
 echo "echo 'Loading jupyterhub...'"  >> "$script_path"
@@ -58,10 +61,8 @@ sudo -u vagrant pip install -r $USR_HOME/$CONFIG_FOLDER/requirements.txt
 printf  "\ninstall fablib\n"
 
 #install fablib
-#sudo -u vagrant pip install fabrictestbed
 sudo -u vagrant pip install fabrictestbed-extensions
 
-#websocket enabled? no, chek the .json file
 printf  "\ndownload jupyter examples\n"
 #download jupyter examples
 sudo -u vagrant  git clone https://github.com/fabric-testbed/jupyter-examples.git
@@ -75,9 +76,15 @@ sudo -u vagrant mkdir $USR_HOME/work/fabric_config/
 
 #variable error
 FABRIC_BASTION_KEY=$(echo "$FABRIC_BASTION_KEY" | tr -d '\r')
+#private Copy
 CPsource=${USR_HOME}/${USER_FOLDER}/${FABRIC_BASTION_KEY}
 CPpaste=${USR_HOME}/work/fabric_config/fabric_bastion_key
 sudo -u vagrant sudo -u vagrant cp "$CPsource" "$CPpaste"
+#public Copy
+CPsource=${USR_HOME}/${USER_FOLDER}/${FABRIC_BASTION_KEY}.pub
+CPpaste=${USR_HOME}/work/fabric_config/slice_key.pub
+sudo -u vagrant sudo -u vagrant cp "$CPsource" "$CPpaste"
+#Token Copy
 CPsource=${USR_HOME}/${USER_FOLDER}/${FABRIC_TOKEN_NAME}
 CPpaste=${USR_HOME}/work/fabric_config/id_token.json
 sudo -u vagrant cp "$CPsource" "$CPpaste"
@@ -95,4 +102,6 @@ rm get-pip.py
 
 echo "starting reboot:"
 echo "After reboot you can start using the machine"
+echo "please navigate to http://localhost:8888/ in your browser after you have logged in"
+echo "token to Jupyterhub is 'Fabric'"
 reboot
